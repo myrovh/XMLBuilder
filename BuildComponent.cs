@@ -31,12 +31,23 @@ public class BuildComponent : MonoBehaviour
 
         BuildPart test2 = new BuildPart();
 	    test2.PartName = "test2";
+	    test2.PrefabName = "test2";
 	    test2.PositionX = 5;
 	    test2.PositionY = 1;
 	    test2.PositionZ = 1;
 
         LocalModuleData.BuildParts.Add(test2);
 	}
+
+    public string ReportCurrentData()
+    {
+        string outputString = null;
+        foreach (BuildPart a in LocalModuleData.BuildParts)
+        {
+            outputString += " " + a.DisplayData();
+        }
+        return outputString;
+    }
 
     public void LoadFromFile()
     {

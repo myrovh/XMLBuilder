@@ -14,4 +14,11 @@ public class BuildPart
     public int PositionX;
     public int PositionY;
     public int PositionZ;
+
+    public string DisplayData()
+    {
+        string outputString = "PrefabName: " + PrefabName + " Position: " + PositionX + "," + PositionY + "," +
+                              PositionZ + " Rotation: " + RotationX + "," + RotationY + "," + RotationZ;
+        return outputString;
+    }
 }
