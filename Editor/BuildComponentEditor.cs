@@ -8,7 +8,12 @@ class BuildComponentEditor : Editor
     {
         DrawDefaultInspector();
 
-        if (GUILayout.Button("Build Now"))
-            Debug.Log("It's alive: " + target.name);
+        if (GUILayout.Button("Test Save"))
+        {
+            BuildComponent component = (BuildComponent) target;
+            component.SaveCurrentData();
+            Debug.Log("Data Saved");
+        }
+
     }
 }
