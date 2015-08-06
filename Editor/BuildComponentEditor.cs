@@ -16,18 +16,15 @@ class BuildComponentEditor : Editor
             component.SaveCurrentData();
         }
 
-        if (GUILayout.Button("Load"))
-        {
-            component.LoadFromFile();
-        }
-
         if (GUILayout.Button("Show Data"))
         {
+            component.LoadFromFile();
             Debug.Log(component.ReportCurrentData());
         }
 
         if (GUILayout.Button("Build"))
         {
+            component.LoadFromFile();
             component.RemoveChildrenObjects();
             component.CreateChildrenObjects();
         }
