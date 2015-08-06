@@ -10,17 +10,15 @@ class BuildComponentEditor : Editor
 
         DrawDefaultInspector();
 
-        if (GUILayout.Button("Create New Template"))
+        if (GUILayout.Button("Create Template"))
         {
             component.UpdateDataFromWorld();
             component.SaveCurrentData();
-            Debug.Log("New Template Created");
         }
 
-        if (GUILayout.Button("Test Load"))
+        if (GUILayout.Button("Load"))
         {
             component.LoadFromFile();
-            Debug.Log("Data Loaded");
         }
 
         if (GUILayout.Button("Show Data"))
@@ -30,7 +28,6 @@ class BuildComponentEditor : Editor
 
         if (GUILayout.Button("Build"))
         {
-            Debug.Log("Destroying Old Children");
             component.RemoveChildrenObjects();
             component.CreateChildrenObjects();
         }
