@@ -27,5 +27,12 @@ class BuildComponentEditor : Editor
         {
             Debug.Log(component.ReportCurrentData());
         }
+
+        if (GUILayout.Button("Build"))
+        {
+            Debug.Log("Destroying Old Children");
+            component.RemoveChildrenObjects();
+            component.CreateChildrenObjects();
+        }
     }
 }

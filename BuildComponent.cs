@@ -19,6 +19,28 @@ public class BuildComponent : MonoBehaviour
         LocalModuleData = new BuildModule();
 	}
 
+    public void RemoveChildrenObjects()
+    {
+        foreach (Transform child in transform)
+        {
+            DestroyImmediate(child.gameObject);
+        }
+    }
+
+    public void CreateChildrenObjects()
+    {
+        if (LocalModuleData == null) return;
+
+        foreach (BuildPart part in LocalModuleData.BuildParts)
+        {
+            GameObject newGameObject = (GameObject)PrefabUtility.InstantiatePrefab(Resources.Load(part.PrefabName) as GameObject);
+            newGameObject.transform.SetParent(transform);
+            newGameObject.name = part.PartName;
+            newGameObject.transform.localPosition = new Vector3(part.PositionX, part.PositionY, part.PositionZ);
+            newGameObject.transform.rotation = Quaternion.Euler(part.RotationX, part.RotationY, part.RotationZ);
+        }
+    }
+
     public void UpdateDataFromWorld()
     {
         if (LocalModuleData == null)
@@ -33,18 +55,17 @@ public class BuildComponent : MonoBehaviour
         foreach (Transform child in transform)
         {
             UnityEngine.Object parentObject = PrefabUtility.GetPrefabParent(child);
-            string prefabName = AssetDatabase.GetAssetPath(parentObject);
-            Debug.Log("prefab path:" + prefabName);
+            Vector3 eulerAngles = child.transform.rotation.eulerAngles;
             BuildPart temp = new BuildPart
             {
                 PositionX = child.position.x,
                 PositionY = child.position.y,
                 PositionZ = child.position.z,
-                RotationX = child.rotation.x,
-                RotationY = child.rotation.y,
-                RotationZ = child.rotation.z,
+                RotationX = eulerAngles.x,
+                RotationY = eulerAngles.y,
+                RotationZ = eulerAngles.z,
                 PartName = child.name,
-                PrefabName = prefabName
+                PrefabName = parentObject.name
             };
             LocalModuleData.BuildParts.Add(temp);
         }
