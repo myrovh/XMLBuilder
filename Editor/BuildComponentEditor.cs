@@ -10,10 +10,11 @@ class BuildComponentEditor : Editor
 
         DrawDefaultInspector();
 
-        if (GUILayout.Button("Test Save"))
+        if (GUILayout.Button("Create New Template"))
         {
+            component.UpdateDataFromWorld();
             component.SaveCurrentData();
-            Debug.Log("Data Saved");
+            Debug.Log("New Template Created");
         }
 
         if (GUILayout.Button("Test Load"))

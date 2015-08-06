@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using System.IO;
+using UnityEditor;
 
 [ExecuteInEditMode]
 public class BuildComponent : MonoBehaviour
@@ -16,28 +17,38 @@ public class BuildComponent : MonoBehaviour
 
 	void Start () {
         LocalModuleData = new BuildModule();
-
-        BuildPart test = new BuildPart();
-	    test.PartName = "test";
-	    test.PrefabName = "test";
-	    test.PositionX = 5;
-	    test.PositionY = 1;
-	    test.PositionZ = 1;
-	    test.RotationX = 90;
-	    test.RotationY = 90;
-	    test.RotationZ = 90;
-
-        LocalModuleData.BuildParts.Add(test);
-
-        BuildPart test2 = new BuildPart();
-	    test2.PartName = "test2";
-	    test2.PrefabName = "test2";
-	    test2.PositionX = 5;
-	    test2.PositionY = 1;
-	    test2.PositionZ = 1;
-
-        LocalModuleData.BuildParts.Add(test2);
 	}
+
+    public void UpdateDataFromWorld()
+    {
+        if (LocalModuleData == null)
+        {
+            LocalModuleData = new BuildModule();
+        }
+        else
+        {
+            LocalModuleData.BuildParts.Clear();
+        }
+
+        foreach (Transform child in transform)
+        {
+            UnityEngine.Object parentObject = PrefabUtility.GetPrefabParent(child);
+            string prefabName = AssetDatabase.GetAssetPath(parentObject);
+            Debug.Log("prefab path:" + prefabName);
+            BuildPart temp = new BuildPart
+            {
+                PositionX = child.position.x,
+                PositionY = child.position.y,
+                PositionZ = child.position.z,
+                RotationX = child.rotation.x,
+                RotationY = child.rotation.y,
+                RotationZ = child.rotation.z,
+                PartName = child.name,
+                PrefabName = prefabName
+            };
+            LocalModuleData.BuildParts.Add(temp);
+        }
+    }
 
     public string ReportCurrentData()
     {

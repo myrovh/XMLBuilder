@@ -7,13 +7,13 @@ public class BuildPart
     public string PartName;
     public string PrefabName;
 
-    public int RotationX;
-    public int RotationY;
-    public int RotationZ;
+    public float RotationX;
+    public float RotationY;
+    public float RotationZ;
 
-    public int PositionX;
-    public int PositionY;
-    public int PositionZ;
+    public float PositionX;
+    public float PositionY;
+    public float PositionZ;
 
     public string DisplayData()
     {
