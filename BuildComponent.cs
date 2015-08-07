@@ -55,12 +55,12 @@ public class BuildComponent : MonoBehaviour
         foreach (Transform child in transform)
         {
             UnityEngine.Object parentObject = PrefabUtility.GetPrefabParent(child);
-            Vector3 eulerAngles = child.transform.rotation.eulerAngles;
+            Vector3 eulerAngles = child.transform.localRotation.eulerAngles;
             BuildPart temp = new BuildPart
             {
-                PositionX = child.position.x,
-                PositionY = child.position.y,
-                PositionZ = child.position.z,
+                PositionX = child.localPosition.x,
+                PositionY = child.localPosition.y,
+                PositionZ = child.localPosition.z,
                 RotationX = eulerAngles.x,
                 RotationY = eulerAngles.y,
                 RotationZ = eulerAngles.z,
